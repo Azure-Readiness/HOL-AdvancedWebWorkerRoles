@@ -297,7 +297,7 @@ In this task, you create a new Virtual Application for an application that you o
 	    </Site>
 	    <Site name="Contoso" physicalDirectory="..\SampleWebApp">
 	      <VirtualApplication name="CRM"
-	                          physicalDirectory="..\..\..\..\Assets\CRM">
+	                          physicalDirectory="..\..\..\Assets\CRM">
 	        <VirtualDirectory name="Scripts"
 	                          physicalDirectory="..\SampleWebApp\Scripts" />
 	        <VirtualDirectory name="Styles"
@@ -333,7 +333,7 @@ In this task, you create a new Virtual Application for an application that you o
 	    </Site>
 	    <Site name="Litware" physicalDirectory="..\SampleWebApp">
 	      <VirtualApplication name="CRM"
-	                          physicalDirectory="..\..\..\..\Assets\CRM">
+	                          physicalDirectory="..\..\..\Assets\CRM">
 	        <VirtualDirectory name="Scripts"
 	                          physicalDirectory="..\SampleWebApp\Scripts" />
 	        <VirtualDirectory name="Styles"
@@ -597,7 +597,7 @@ In this task, you will use multiple start-up tasks to install the Web Platform I
 	  <ConfigurationSettings>
 	    ...
 	  </ConfigurationSettings>
-	    <Startup>
+	  <Startup>
 	    <Task commandLine="InstallPHP.cmd" executionContext="elevated" taskType="simple" />
 	  </Startup>
 	  <Endpoints>

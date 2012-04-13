@@ -12,7 +12,7 @@ namespace SampleWebApp
         protected void ShowGreeting_Click(object sender, EventArgs e)
         {
             LegacyCOMLib.Helper helper = new LegacyCOMLib.Helper();
-            Message.Text = helper.Greeting(Username.Text);
+            this.Message.Text = helper.Greeting(this.Username.Text);
         }
     }
 }
