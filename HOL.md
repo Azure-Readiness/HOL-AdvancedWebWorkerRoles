@@ -8,7 +8,7 @@
 	
 When Windows Azure was first released, there were a few, but significant restrictions in the programming model. Things like Full Trust, Administrative Access, and the full IIS feature-set were initially restricted for security reasons. This impacted the types of applications that could be created in Windows Azure because even small changes to things like configuration settings were often blocked by lack of administrative control over the VM Instances. Over time, those restrictions were lifted - first Full Trust, and now the ultimate control: Administrative access and Full IIS support.
 
-With the latest SDK release, you can choose to run your web sites under IIS7, not in Hosted Web Core as in the past, but in full IIS. This means you can use all the facilities of IIS now like custom modules, multiple websites, VDIR support, application pool isolation, and more.
+Now, you can choose to run your web sites under IIS7, not in Hosted Web Core as in the past, but in full IIS. This means you can use all the facilities of IIS now like custom modules, multiple websites, VDIR support, application pool isolation, and more.
 
 Additionally, you can now choose two different ways to exercise your administrative control. You can bootstrap the machine as an administrator using something called “Startup Tasks” shown in this lab. This temporarily raises your permissions to administrative and allows you perform small setups, update configuration settings, or other bootstrapping tasks. Once completed, your code will run as a normal, unprivileged user. The second method is that you can now configure your role to simply run as an administrator the entire time. In most cases, the Startup Tasks are the right choice as running your role with administrative permissions the entire time has security implications.
 
@@ -28,12 +28,13 @@ In this hands-on lab, you will learn how to:
 - Install complex components required by a web role, such as a scripting language's binary files.
 	
 
->**Note:** This lab shows advanced features of Web and Worker roles in Windows Azure; it assumes that you have sufficient knowledge of Windows Azure. If you are beginner in Windows Azure, see the **Introduction to Windows Azure** lab in this training kit first.
+>**Note:** This lab shows advanced features of Web and Worker roles in Windows Azure; it assumes that you have sufficient knowledge of Windows Azure. If you are beginner in Windows Azure, see the **Introduction to Windows Azure** lab first.
 
 <a name="Prerequisites" />
 ### Prerequisites ###
 
 The following is required to complete this hands-on lab:
+
 
 - IIS 7 (with ASP.NET, WCF HTTP Activation)
 
@@ -43,15 +44,18 @@ The following is required to complete this hands-on lab:
 
 	- Microsoft Visual C++ 2010 (required for Exercise 2 of the lab)
 
-- [Windows Azure Tools for Microsoft Visual Studio 1.6][3]
+- [Windows Azure Tools for Microsoft Visual Studio 1.7][3]
 
-- [SQL Server 2008 Express Edition (or later)][4]
+- [SQL Server 2012 Express Edition][4]
 
 
 [1]:http://go.microsoft.com/fwlink/?linkid=186916
 [2]:http://msdn.microsoft.com/vstudio/products
 [3]:http://www.microsoft.com/windowsazure/sdk/
 [4]:http://www.microsoft.com/express/sql/download/
+
+
+>**Note:** This lab was designed to use Windows 7 Operating System. 
 
 <a name="Setup" />	
 ### Setup ###
@@ -60,7 +64,7 @@ In order to execute the exercises in this hands-on lab you need to set up your e
 
 1. Open a Windows Explorer window and browse to the lab’s **Source** folder.
 
-1. Double-click the **Setup.cmd** file in this folder to launch the setup process that will configure your environment and install the Visual Studio code snippets for this lab.
+1. Execute the **Setup.cmd** file in this folder with Administration privileges. This setup process will configure your environment and install the Visual Studio code snippets for this lab.
 
 1. If the User Account Control dialog is shown, confirm the action to proceed.
 
@@ -86,8 +90,10 @@ This hands-on lab includes the following exercises:
 
 	
 Estimated time to complete this lab: **60 minutes**.
-	
->**Note:** When you first start Visual Studio, you must select one of the predefined settings collections. Every predefined collection is designed to match a particular development style and determines window layouts, editor behavior, IntelliSense code snippets, and dialog box options. The procedures in this lab describe the actions necessary to accomplish a given task in Visual Studio when using the **General Development Settings** collection. If you choose a different settings collection for your development environment, there may be differences in these procedures that you need to take into account.
+
+>**Note:** Each exercise is accompanied by a starting solution located in the Begin folder of the exercise that allows you to follow each exercise independently of the others. Please be aware that the code snippets that are added during an exercise are missing from these starting solutions and that they will not necessarily work until you complete the exercise. Inside the source code for an exercise, you will also find an End folder containing a Visual Studio solution with the code that results from completing the steps in the corresponding exercise. You can use these solutions as guidance if you need additional help as you work through this hands-on lab.
+>
+> When you first start Visual Studio, you must select one of the predefined settings collections. Every predefined collection is designed to match a particular development style and determines window layouts, editor behavior, IntelliSense code snippets, and dialog box options. The procedures in this lab describe the actions necessary to accomplish a given task in Visual Studio when using the **General Development Settings** collection. If you choose a different settings collection for your development environment, there may be differences in these procedures that you need to take into account.
 
 	
 <a name="Exercise1" />
@@ -111,6 +117,8 @@ _Advanced service model for Full IIS hosting_
 
 In this exercise, you will learn how to define different sites, applications, and virtual directories within a Web role using a single Web role application, which you will map to multiple sites. To show site customization, you will modify the master page of the application to show the site name on each page. During the exercise, you will create a Virtual Application for a hypothetical CRM application and enable it for selected sites. Additionally, you will use Virtual Directories to share common content between applications.
 
+>**Note:** To reduce typing, you can right-click where you want to insert source code, select Insert Snippet, select My Code Snippets and then select the entry matching the current exercise step.
+
 <a name="Ex1Task1"/>
 #### Task 1 - Defining Multiple Sites in a Web Role Using the Service Model ####
 
@@ -120,7 +128,7 @@ In this task, you edit the service model to define three separate sites that map
 
 >**Note:** This task requires the **hosts** file to be updated. If you did not execute the setup instruction for this lab, this exercise will not work. Proceed with the setup instructions before starting with this task.
 	
-1. Start Microsoft Visual Studio 2010 as an administrator.
+1. Start Microsoft Visual Studio 2010 with administrator privileges.
 
 1. Open the **Begin** solution located in **Ex1-FullIIS** in the **Source** folder of the lab.
 
@@ -199,7 +207,7 @@ In this task, you edit the service model to define three separate sites that map
 		
 	>**Note:** All three sites are mapped to the same physical directory ("_..\SampleWebApp_") and bound to the same HTTP endpoint (_HttpIn)_. The endpoint binding, however, specifies a different host header value for each site.
 
-1. Press **F5** to build and run the Windows Azure project. Wait for the application to launch in the compute emulator and for the browser to open pointing at the default site address. Notice that it shows an error page with a status “HTTP 400 Bad Request”.
+1. Press **F5** to build and run the Windows Azure project. Wait for the application to launch in the compute emulator and for the browser to open pointing at the default site address. Notice that it shows an error page with a status **HTTP 400 Bad Request**.
 	
 	>**Note:** By default, the Windows Azure Tools for Visual Studio opens the default Web site in your browser. In this case, however, you have removed the default mapping and there is no longer any site accessible without the use of a host header, which explains the error response.
 
@@ -280,7 +288,7 @@ In this task, you edit the service model to define three separate sites that map
 
 In this task, you create a new Virtual Application for an application that you only enable for selected sites. 
 
-1. In Visual Studio, add the sample CRM application project located in the **Assets** folder of the lab to the solution. 
+1. In Visual Studio, add the sample **CRM** application project located in the **Assets** folder of the lab to the solution. 
 
 1. Now, in the Windows Azure project, open the service model file **ServiceDefinition.csdef**.
 
@@ -378,7 +386,7 @@ In this task, you create a start-up task that registers the COM component requir
 
 >**Important**: Make sure that you have launched the dependency checker to set up the lab before starting this task. The setup procedure builds the COM component required by the solution from source code in the **Assets** folder. Note that you need to have Visual C++ installed for this purpose.
 
->In addition, to use the COM component, the identity of the process instantiating it must have access to the directory where the component is installed. To ensure this, avoid launching the service from a location inside your user profile folder and instead, copy the project files to a folder with unrestricted permissions, for example, to a folder within the default installation location of the training kit, C:\WATK.
+>In addition, to use the COM component, the identity of the process instantiating it must have access to the directory where the component is installed. To ensure this, avoid launching the service from a location inside your user profile folder and instead, copy the project files to a folder with unrestricted permissions.
 	
 1. Start Microsoft Visual Studio 2010 as an administrator.
 
@@ -632,4 +640,4 @@ In this task, you will use multiple start-up tasks to install the Web Platform I
 
 ## Summary##
 
-In this hands-on lab, you reviewed some advanced Windows Azure service model features. You saw how to enable hosting a Web role in Internet Information Server (IIS) to access its full set of features. By enabling IIS, you were able to host multiple sites in a single Web role and create virtual applications and directories. Additionally, you explored start-up tasks that you can use to prepare the role environment, and how to use them to register a COM component, as well as installing entire binary file sets for a scripting language.
+In this Hands-on Lab, you reviewed some advanced Windows Azure service model features. You saw how to enable hosting a Web role in Internet Information Server (IIS) to access its full set of features. By enabling IIS, you were able to host multiple sites in a single Web role and create virtual applications and directories. Additionally, you explored start-up tasks that you can use to prepare the role environment, and how to use them to register a COM component, as well as installing entire binary file sets for a scripting language.
