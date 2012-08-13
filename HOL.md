@@ -1,9 +1,9 @@
-﻿<a name="HOLTop" />
+<a name="HOLTop"></a>
 # Advanced Web and Worker Roles #
 
 ---
 
-<a name="Overview" />
+<a name="Overview"></a>
 ## Overview ##
 	
 When Windows Azure was first released, there were a few, but significant restrictions in the programming model. Things like Full Trust, Administrative Access, and the full IIS feature-set were initially restricted for security reasons. This impacted the types of applications that could be created in Windows Azure because even small changes to things like configuration settings were often blocked by lack of administrative control over the VM Instances. Over time, those restrictions were lifted - first Full Trust, and now the ultimate control: Administrative access and Full IIS support.
@@ -14,7 +14,7 @@ Additionally, you can now choose two different ways to exercise your administrat
 
 This lab introduces these new capabilities that are unlocked in Windows Azure and allow more advanced application scenarios.
 
-<a name="Objectives" />
+<a name="Objectives"></a>
 ### Objectives ###
 
 In this hands-on lab, you will learn how to:
@@ -30,7 +30,7 @@ In this hands-on lab, you will learn how to:
 
 >**Note:** This lab shows advanced features of Web and Worker roles in Windows Azure; it assumes that you have sufficient knowledge of Windows Azure. If you are beginner in Windows Azure, see the **Introduction to Windows Azure** lab first.
 
-<a name="Prerequisites" />
+<a name="Prerequisites"></a>
 ### Prerequisites ###
 
 The following is required to complete this hands-on lab:
@@ -48,6 +48,8 @@ The following is required to complete this hands-on lab:
 
 - [SQL Server 2012 Express Edition][4]
 
+- A Windows Azure subscription - [sign up for a free trial](http://aka.ms/WATK-FreeTrial)
+
 
 [1]:http://go.microsoft.com/fwlink/?linkid=186916
 [2]:http://msdn.microsoft.com/vstudio/products
@@ -57,7 +59,7 @@ The following is required to complete this hands-on lab:
 
 >**Note:** This lab was designed to use Windows 7 Operating System. 
 
-<a name="Setup" />	
+<a name="Setup"></a>
 ### Setup ###
 
 In order to execute the exercises in this hands-on lab you need to set up your environment.
@@ -70,14 +72,14 @@ In order to execute the exercises in this hands-on lab you need to set up your e
 
 	>**Note:** Make sure you have checked all the dependencies for this lab before running the setup.
 
-<a name="CodeSnippets" />
+<a name="CodeSnippets"></a>
 ### Using the Code Snippets ###
 
 Throughout the lab document, you will be instructed to insert code blocks. For your convenience, most of that code is provided as Visual Studio Code Snippets, which you can use from within Visual Studio 2010 to avoid having to add it manually.
 
 ---
 
-<a name="Exercises" />
+<a name="Exercises"></a>
 ## Exercises ##
 
 This hands-on lab includes the following exercises:
@@ -96,7 +98,7 @@ Estimated time to complete this lab: **60 minutes**.
 > When you first start Visual Studio, you must select one of the predefined settings collections. Every predefined collection is designed to match a particular development style and determines window layouts, editor behavior, IntelliSense code snippets, and dialog box options. The procedures in this lab describe the actions necessary to accomplish a given task in Visual Studio when using the **General Development Settings** collection. If you choose a different settings collection for your development environment, there may be differences in these procedures that you need to take into account.
 
 	
-<a name="Exercise1" />
+<a name="Exercise1"></a>
 ### Exercise 1: Registering Sites, Applications, and Virtual Directories ###
 
 When hosted in [IIS Hosted Web Core (HWC)] (http://technet.microsoft.com/en-us/library/cc735238\(WS.10\).aspx), Windows Azure Web roles can support a single application bound to no more than a single HTTP and a single HTTPS endpoint. This model is enabled with minimal configuration and was the only one originally supported in Windows Azure when it was first introduced. To use HWC, you only need to specify the HTTP and HTTPS endpoints bound to the Web application in the service model, as shown in the figure below.
@@ -119,7 +121,7 @@ In this exercise, you will learn how to define different sites, applications, an
 
 >**Note:** To reduce typing, you can right-click where you want to insert source code, select Insert Snippet, select My Code Snippets and then select the entry matching the current exercise step.
 
-<a name="Ex1Task1"/>
+<a name="Ex1Task1"></a>
 #### Task 1 - Defining Multiple Sites in a Web Role Using the Service Model ####
 
 The service model in Windows Azure is determined by the service definition file, which defines the roles that comprise a service, optional local storage resources, configuration settings, certificates for SSL endpoints, and, as you will see in the following exercise, start-up tasks. 
@@ -283,7 +285,7 @@ In this task, you edit the service model to define three separate sites that map
 	
 1. Close all browser windows.
 	
-<a name="Ex1Task2"/>
+<a name="Ex1Task2"></a>
 #### Task 2 - Creating Virtual Applications and Virtual Directories ####
 
 In this task, you create a new Virtual Application for an application that you only enable for selected sites. 
@@ -370,14 +372,14 @@ In this task, you create a new Virtual Application for an application that you o
 
 
 	
-<a name="Exercise2" />
+<a name="Exercise2"></a>
 ### Exercise 2: Using Start-Up Tasks to Register a COM Component ###
 
 A start-up task is a command, either an executable or a script, executed prior to the start of a role instance. The command can perform set up tasks that are required to prepare the environment for the application, such as installing applications, registering COM components, configuring IIS settings, or registering performance counters.
 
 In this exercise, you explore the use of start-up tasks to configure the environment where a service executes. To do this, you will use a sample Web application that requires a COM component to work.
 
-<a name="Ex2Task1" />
+<a name="Ex2Task1"></a>
 #### Task 1 - Registering a COM Component ####
 
 Many applications today still rely on functionality provided by "legacy" COM components. Moving these applications to the cloud requires that each virtual machine instance hosting the application have the necessary components installed and registered. Registration needs to be carried out upon role start up and requires administrative privileges.
@@ -516,14 +518,14 @@ In this task, you create a start-up task that registers the COM component requir
 
 	>**Note:** For this lab, you have access to the source code for the COM component and are able to build and deploy the 64-bit version when deploying to Windows Azure. If you need to register a COM component for which you do not have source code, be aware that 32-bit components cannot be accessed directly by a 64-bit role process, and instead need to be launched in a separate surrogate process. 
 
-<a name="Exercise3" />
+<a name="Exercise3"></a>
 ### Exercise 3: Using Start-Up tasks to install PHP with the Web Platform Installer ###
 
 Applications deployed to the cloud usually have a set of prerequisites that must be installed on the host computer to be able to work correctly. In this kind of scenario, having the capabilities of the **Microsoft Web Platform Installer** (Web PI) at your service can be very handy.
 
 In this exercise, you explore another possible use for start-up tasks in conjunction with the Web Platform Installer. You will learn how to install complex components such as the binary files for a new scripting language. To do this, you will create a simple PHP page, requiring that the PHP script processor be installed in order to work.
 
-<a name="Ex3Task1"/>
+<a name="Ex3Task1"></a>
 #### Task 1 - Installing PHP with the Web Platform installer ####
 
 In this task, you will use multiple start-up tasks to install the Web Platform Installer and then install PHP using the Web PI.
@@ -636,7 +638,7 @@ In this task, you will use multiple start-up tasks to install the Web Platform I
 
 ---
 
-<a name="Summary"/>
+<a name="Summary"></a>
 
 ## Summary##
 
