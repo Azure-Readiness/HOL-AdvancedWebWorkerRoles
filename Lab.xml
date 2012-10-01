@@ -5,20 +5,18 @@
     <Technology>Windows Azure</Technology>
   </Technologies>
   <Author>
-    <Blog>
-    </Blog>
-    <Email>
-    </Email>
+    <Blog></Blog>
+    <Email></Email>
     <Name>wwegner</Name>
   </Author>
-  <Description>This lab introduces how to manage multiple web sites, applications, and virtual directories in web roles. Then, it goes through scenarios that use startup tasks to register COM components and a PHP server.</Description>  
-  <Document ConversionType="Html">.\HOL.md</Document>  
+  <Description>This lab introduces how to manage multiple web sites, applications, and virtual directories in web roles. Then, it goes through scenarios that use startup tasks to register COM components and a PHP server.</Description>
+  <Document ConversionType="Html">.\HOL.md</Document>
   <Title>Advanced Web and Worker Roles</Title>
-  <Version>2.1.1</Version>
+  <Version>2.1.2</Version>
   <Source>.\source</Source>
   <DependencyChecker>.\source\Setup\Dependencies.depi</DependencyChecker>
-  <CustomProperties>   
-      	<Property Name="ContentType" Value="VS2010" />
-	<Property Name="GitHubRepository" Value="https://github.com/WindowsAzure-TrainingKit/HOL-AdvancedWebWorkerRoles" />
+  <CustomProperties>
+    <Property Name="ContentType" Value="VS2010" />
+    <Property Name="GitHubRepository" Value="https://github.com/WindowsAzure-TrainingKit/HOL-AdvancedWebWorkerRoles" />
   </CustomProperties>
-</Lab> 
+</Lab>
